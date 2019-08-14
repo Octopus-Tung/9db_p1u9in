@@ -8,7 +8,7 @@ class Entry:
     def dyn(self, dyn_base, d_tag):
         while gdb.Value(dyn_base).cast(gdb.lookup_type("Elf64_Dyn").pointer()).dereference()["d_tag"] != d_type:
             Dyn_ptr = dyn_base + 0x10
-        return gdb.Value(dyn_base).cast(gdb.lookup_type("Elf64_Dyn").pointer()).dereference()["d_un"]["d_ptr"]
+        return int(gdb.Value(dyn_base).cast(gdb.lookup_type("Elf64_Dyn").pointer()).dereference()["d_un"]["d_ptr"], 16)
 
 class Link_map:
     def __init__(self):
